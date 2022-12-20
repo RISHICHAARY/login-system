@@ -5,6 +5,7 @@
         "createtable",
         "Firstname",
         "Lastname",
+        "regi",
         "synkers"
     ]
 }

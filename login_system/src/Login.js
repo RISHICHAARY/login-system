@@ -1,5 +1,6 @@
-import { useState, useEffect, } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Axios from 'axios';
 
 import './Login.css';
 import laden from './laden.png'
@@ -11,12 +12,42 @@ function Login(){
     const [ Password , setPassword ] = useState( [] );
     const Navigate = useNavigate();
 
-    useEffect(() => {
-        console.log( Username )
-    } , [ Username ] )
-    useEffect(() => {
-        console.log( Password )
-    }, [ Password ] )
+
+    const [ Users_list , setUsers_list ] = useState([]);
+
+    const validate = () => {
+        for( var i=0 ; i < Users_list.length ; i++ ){
+            if( (Users_list[i].first_name+" "+Users_list[i].last_name) === Username || (Users_list[i].first_name+Users_list[i].last_name) === Username ){
+                if( Users_list[i].password === Password ){
+                    alert("Success");
+                    break;
+                }
+                else{alert("Invalid Password")}
+            }
+            else if( Users_list[i].email === Username ){
+                if( Users_list[i].password === Password ){
+                    alert("Success");
+                    break;
+                }
+                else{alert("Invalid Password")}
+            }
+            else if( Users_list[i].mobile_no === Username ){
+                if( Users_list[i].password === Password ){
+                    alert("Success");
+                    break;
+                }
+                else{alert("Invalid Password")}
+            }
+            else if( i === Users_list.length-1 ){alert("Invalid Username!!");}
+        }
+    };
+
+    const check = () => {
+        Axios.get("http://localhost:3001/login").then((response) => {
+            setUsers_list(response.data);
+            validate();
+        })
+    };
 
     return(
         <div className="main-container w-50">
@@ -49,7 +80,8 @@ function Login(){
                             className="input-attributes w-100"
                             onChange={(event)=>{setPassword(event.target.value)}}>
                         </input>
-                        <button className="final-button general-button">
+                        <button className="final-button general-button"
+                            onClick={check} type="button">
                             <p className="final-label">
                             GET IN
                             <i className="fi fi-br-angle-right end-icons-err"></i>

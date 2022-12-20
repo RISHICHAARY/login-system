@@ -19,7 +19,7 @@ app.listen(3001, () => {
     console.log("Server - ON");
 })
 
-app.post("/create", (req,res) =>{
+app.post("/register", (req,res) =>{
     
     const Firstname = req.body.Firstname;
     const Lastname = req.body.Lastname;
@@ -40,3 +40,14 @@ app.post("/create", (req,res) =>{
             }
         });
 });
+
+app.get("/login",(req,res) => {
+    db.query("select * from users", (err,result) => {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send(result);
+        }
+    });
+})

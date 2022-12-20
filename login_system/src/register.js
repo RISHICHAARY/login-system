@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from 'axios';
 
@@ -20,7 +20,7 @@ function Register(){
     const [ Password , setPassword ] = useState( "" );
 
     const regi = () =>{
-        Axios.post("http://localhost:3001/create" , {
+        Axios.post("http://localhost:3001/register" , {
             Firstname : Firstname,
             Lastname : Lastname,
             Gender : Gender,
